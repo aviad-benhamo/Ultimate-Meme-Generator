@@ -45,3 +45,7 @@ function setImg(imgId) {
 function setColor(color) {
     gMeme.lines[0].color = color
 }
+
+function changeFontSize(diff) {
+    gMeme.lines[0].size += diff
+}

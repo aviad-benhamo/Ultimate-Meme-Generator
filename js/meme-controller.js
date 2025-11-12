@@ -49,3 +49,8 @@ function onSetColor(color) {
     setColor(color)
     renderMeme()
 }
+
+function onChangeFontSize(diff) {
+    changeFontSize(diff)
+    renderMeme()
+}
