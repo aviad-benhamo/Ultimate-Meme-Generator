@@ -41,3 +41,7 @@ function getImgs() {
 function setImg(imgId) {
     gMeme.selectedImgId = imgId
 }
+
+function setColor(color) {
+    gMeme.lines[0].color = color
+}

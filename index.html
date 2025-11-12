@@ -15,6 +15,7 @@
     <section class="meme-editor hidden">
         <canvas class="meme-canvas" width="500" height="500"></canvas>
         <input oninput="onTextInput()" class="myTextInput" type="text" placeholder="Enter text here">
+        <input type="color" id="color-picker" value="#000000" onchange="onSetColor(this.value)" />
         <a href="#" class="btn" onclick="onDownloadImg(this)" download="my-img.jpg">Download</a>
     </section>
 

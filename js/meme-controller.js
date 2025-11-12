@@ -44,3 +44,8 @@ function onDownloadImg(elLink) {
     const imgContent = gElCanvas.toDataURL('image/jpeg')
     elLink.href = imgContent
 }
+
+function onSetColor(color) {
+    setColor(color)
+    renderMeme()
+}
