@@ -16,8 +16,8 @@ var gMeme = {
     selectedImgId: 1,
     selectedLineIdx: 0,
     lines: [
-        { txt: 'I sometimes eat Falafel', size: 30, color: 'white' },
-        { txt: 'new Line', size: 30, color: 'white' }
+        { txt: 'I sometimes eat Falafel', size: 30, color: '#ffffff' },
+        { txt: 'new Line', size: 30, color: '#ffffff' }
     ]
 }
 
@@ -33,10 +33,6 @@ function getSelectedLine() {
 
 function getImgById(imgId) {
     return gImgs.find(img => img.id === imgId)
-}
-
-function setLineTxt(text) {
-    gMeme.lines[gMeme.selectedLineIdx].txt = text
 }
 
 function getImgs() {
@@ -56,11 +52,11 @@ function setColor(color) {
 }
 
 function changeFontSize(diff) {
-    gMeme.lines[gMeme.selectedLineIdx].size += diff
+    getSelectedLine().size += diff
 }
 
 function addLine() {
-    gMeme.lines.push({ txt: 'New Line', size: 30, color: 'white' })
+    gMeme.lines.push({ txt: 'New Line', size: 30, color: '#ffffff' })
     gMeme.selectedLineIdx = gMeme.lines.length - 1
 
 }
