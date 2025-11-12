@@ -24,7 +24,6 @@ function renderMeme() {
         //write text
         gCtx.fillText(line.txt, x, y)
         gCtx.strokeText(line.txt, x, y)
-
     }
 }
 
