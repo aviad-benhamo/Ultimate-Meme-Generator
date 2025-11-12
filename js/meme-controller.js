@@ -39,3 +39,8 @@ function onImgSelect(imgId) {
     document.querySelector('.image-gallery').classList.add('hidden')
     document.querySelector('.meme-editor').classList.remove('hidden')
 }
+
+function onDownloadImg(elLink) {
+    const imgContent = gElCanvas.toDataURL('image/jpeg')
+    elLink.href = imgContent
+}
