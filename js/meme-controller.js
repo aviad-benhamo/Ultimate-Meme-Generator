@@ -32,3 +32,10 @@ function onTextInput() {
     setLineTxt(txt)
     renderMeme()
 }
+
+function onImgSelect(imgId) {
+    setImg(imgId)
+    renderMeme()
+    document.querySelector('.image-gallery').classList.add('hidden')
+    document.querySelector('.meme-editor').classList.remove('hidden')
+}

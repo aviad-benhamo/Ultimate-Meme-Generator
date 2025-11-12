@@ -37,3 +37,7 @@ function setLineTxt(text) {
 function getImgs() {
     return gImgs
 }
+
+function setImg(imgId) {
+    gMeme.selectedImgId = imgId
+}
