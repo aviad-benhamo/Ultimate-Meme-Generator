@@ -12,6 +12,10 @@ function onInit() {
     gElTextInput = document.querySelector('.myTextInput')
     gElColorInput = document.getElementById('color-picker')
 
+    //listen to clicks on Cancas
+    gElCanvas.addEventListener('mousedown', onCanvasClick)
+    gElCanvas.addEventListener('touchstart', onCanvasClick)
+
     gCurrSelectedImg.onload = renderMeme //Run the function after selecting the image.
 
     const meme = getMeme()

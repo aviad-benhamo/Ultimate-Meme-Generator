@@ -17,7 +17,15 @@ var gMeme = {
     selectedLineIdx: 0,
     lines: [
         { txt: 'I sometimes eat Falafel', size: 30, color: '#ffffff' },
-        { txt: 'new Line', size: 30, color: '#ffffff' }
+        {
+            txt: "new Line",
+            size: 30,
+            color: "#ffffff",
+            posX: 188.474609375,
+            posY: 420,
+            width: 123.05078125,
+            height: 36
+        }
     ]
 }
 
@@ -59,6 +67,10 @@ function addLine() {
     gMeme.lines.push({ txt: 'New Line', size: 30, color: '#ffffff' })
     gMeme.selectedLineIdx = gMeme.lines.length - 1
 
+}
+
+function setSelectedLine(idx) {
+    gMeme.selectedLineIdx = idx
 }
 
 function switchLine() {

@@ -46,6 +46,12 @@ function drawTextFrame(line, x, y) {
     const rectWidth = textWidth + (padding * 2)
     const rectHeight = textHeight + 6
 
+    //save the location in the object
+    line.posX = rectX
+    line.posY = rectY
+    line.width = rectWidth
+    line.height = rectHeight
+
     gCtx.strokeStyle = line.color
     gCtx.lineWidth = 3
     gCtx.strokeRect(rectX, rectY, rectWidth, rectHeight)
@@ -127,4 +133,45 @@ function updateTextInput() {
 function updateColorInput() {
     const line = getSelectedLine()
     gElColorInput.value = line.color
+}
+
+function onCanvasClick(ev) {
+    const pos = getEvPos(ev)
+    const meme = getMeme()
+
+    const clickedLineIdx = meme.lines.findIndex(line => {
+        return (
+            pos.x >= line.posX &&
+            pos.x <= line.posX + line.width &&
+            pos.y >= line.posY &&
+            pos.y <= line.posY + line.height
+        )
+    })
+    if (clickedLineIdx !== -1) {
+        setSelectedLine(clickedLineIdx)
+
+        renderMeme()
+        updateTextInput()
+        updateColorInput()
+    }
+}
+
+
+function getEvPos(ev) {
+    let pos = { x: 0, y: 0 }
+    const rect = gElCanvas.getBoundingClientRect()
+
+    if (ev.touches && ev.touches.length > 0) {
+        ev.preventDefault()
+        pos = {
+            x: ev.touches[0].clientX - rect.left,
+            y: ev.touches[0].clientY - rect.top,
+        }
+    } else {
+        pos = {
+            x: ev.offsetX,
+            y: ev.offsetY,
+        }
+    }
+    return pos
 }
