@@ -110,7 +110,6 @@ function onDownloadImg(elLink) {
     renderMeme()
 }
 
-
 function onSetColor(color) {
     setColor(color)
     renderMeme()
@@ -125,8 +124,6 @@ function onSetAlign(align) {
     setAlign(align)
     renderMeme()
 }
-
-
 
 function onChangeFontSize(diff) {
     const line = getSelectedLine()
