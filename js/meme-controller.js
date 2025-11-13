@@ -10,20 +10,29 @@ function renderMeme() {
 }
 
 function drawText(line, idx) {
-    gCtx.font = `${line.size}px Impact`
+    gCtx.font = `${line.size}px ${line.font}`
     gCtx.fillStyle = line.color
-    gCtx.textAlign = 'center'
     gCtx.strokeStyle = 'black'
     gCtx.lineWidth = 2
+
+    let x
+    const padding = 10
+    if (line.align === 'left') {
+        x = padding
+        gCtx.textAlign = 'left'
+    } else if (line.align === 'right') {
+        x = gElCanvas.width - padding
+        gCtx.textAlign = 'right'
+    } else { // 'center'
+        x = gElCanvas.width / 2
+        gCtx.textAlign = 'center'
+    }
 
     //Y location
     let y
     if (idx === 0) y = 50
     else if (idx === 1) y = gElCanvas.height - 50
     else y = gElCanvas.height / 2
-
-    //X location
-    const x = gElCanvas.width / 2
 
     //write text
     gCtx.fillText(line.txt, x, y)
@@ -36,12 +45,21 @@ function drawText(line, idx) {
 }
 
 function drawTextFrame(line, x, y) {
-    gCtx.font = `${line.size}px Impact`
+    gCtx.font = `${line.size}px ${line.font}`
     const textWidth = gCtx.measureText(line.txt).width
     const textHeight = line.size
     const padding = 8
 
-    const rectX = x - (textWidth / 2) - padding
+    let rectX
+    if (line.align === 'left') {
+        rectX = x - padding
+    } else if (line.align === 'right') {
+        rectX = x - textWidth - padding
+    } else { // 'center'
+        rectX = x - (textWidth / 2) - padding
+    }
+
+
     const rectY = y - textHeight
     const rectWidth = textWidth + (padding * 2)
     const rectHeight = textHeight + 6
@@ -70,6 +88,7 @@ function onImgSelect(imgId) {
 
     updateTextInput()
     updateColorInput()
+    updateFontSelect()
 
     //hide gallery after selecting pic
     document.querySelector('.image-gallery').classList.add('hidden')
@@ -81,25 +100,40 @@ function onDownloadImg(elLink) {
     const currIdx = getMeme().selectedLineIdx
     gMeme.selectedLineIdx = -1
     renderMeme()
+
     //Download Pic
     const imgContent = gElCanvas.toDataURL('image/jpeg')
     elLink.href = imgContent
+
     //Return Frame and rerender
     gMeme.selectedLineIdx = currIdx
     renderMeme()
 }
+
 
 function onSetColor(color) {
     setColor(color)
     renderMeme()
 }
 
+function onSetFont(font) {
+    setFont(font)
+    renderMeme()
+}
+
+function onSetAlign(align) {
+    setAlign(align)
+    renderMeme()
+}
+
+
+
 function onChangeFontSize(diff) {
     const line = getSelectedLine()
     const newSize = line.size + diff
     //Limit small size
     if (newSize < 14) return
-    gCtx.font = `${newSize}px Impact`
+    gCtx.font = `${newSize}px ${line.font}`
     const textWidth = gCtx.measureText(line.txt).width
     const canvasWidth = gElCanvas.width
     //Limit too big size
@@ -116,6 +150,7 @@ function onAddLine() {
     renderMeme()
     updateTextInput()
     updateColorInput()
+    updateFontSelect()
 }
 
 function onSwitchLine() {
@@ -123,6 +158,7 @@ function onSwitchLine() {
     renderMeme()
     updateTextInput()
     updateColorInput()
+    updateFontSelect()
 }
 
 function updateTextInput() {
@@ -135,43 +171,54 @@ function updateColorInput() {
     gElColorInput.value = line.color
 }
 
-function onCanvasClick(ev) {
-    const pos = getEvPos(ev)
-    const meme = getMeme()
-
-    const clickedLineIdx = meme.lines.findIndex(line => {
-        return (
-            pos.x >= line.posX &&
-            pos.x <= line.posX + line.width &&
-            pos.y >= line.posY &&
-            pos.y <= line.posY + line.height
-        )
-    })
-    if (clickedLineIdx !== -1) {
-        setSelectedLine(clickedLineIdx)
-
-        renderMeme()
-        updateTextInput()
-        updateColorInput()
-    }
+function updateFontSelect() {
+    const line = getSelectedLine()
+    gElFontSelect.value = line.font
 }
 
+function onCanvasClick(ev) {
+    ev.preventDefault()
+    const pos = getEvPos(ev) // {x, y}
+
+    const scaleX = gElCanvas.width / gElCanvas.clientWidth
+    const scaleY = gElCanvas.height / gElCanvas.clientHeight
+    const clickX = pos.x * scaleX
+    const clickY = pos.y * scaleY
+
+
+    const clickedLineIdx = findClickedLine(clickX, clickY)
+
+    if (clickedLineIdx === -1) return
+
+    setSelectedLine(clickedLineIdx)
+
+    renderMeme()
+    updateTextInput()
+    updateColorInput()
+    updateFontSelect()
+}
+
+function findClickedLine(x, y) {
+    const lines = getMeme().lines
+    return lines.findIndex(line => {
+        return (
+            x >= line.posX && x <= line.posX + line.width &&
+            y >= line.posY && y <= line.posY + line.height
+        )
+    })
+}
 
 function getEvPos(ev) {
-    let pos = { x: 0, y: 0 }
-    const rect = gElCanvas.getBoundingClientRect()
-
-    if (ev.touches && ev.touches.length > 0) {
-        ev.preventDefault()
-        pos = {
-            x: ev.touches[0].clientX - rect.left,
-            y: ev.touches[0].clientY - rect.top,
+    if (ev.touches) {
+        return {
+            x: ev.touches[0].clientX - ev.target.offsetLeft - ev.target.clientLeft,
+            y: ev.touches[0].clientY - ev.target.offsetTop - ev.target.clientTop,
         }
-    } else {
-        pos = {
+    }
+    else {
+        return {
             x: ev.offsetX,
             y: ev.offsetY,
         }
     }
-    return pos
 }

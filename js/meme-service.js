@@ -1,15 +1,7 @@
 'use strict'
 var gImgs = [
-    {
-        id: 1,
-        url: 'img/1.jpg',
-        keywords: ['funny', 'cat']
-    },
-    {
-        id: 2,
-        url: 'img/2.jpg',
-        keywords: ['funny', 'dog']
-    },
+    { id: 1, url: 'img/1.jpg', keywords: ['funny', 'cat'] },
+    { id: 2, url: 'img/2.jpg', keywords: ['funny', 'dog'] },
     { id: 3, url: 'img/3.jpg', keywords: ['meme'] },
     { id: 4, url: 'img/4.jpg', keywords: ['meme'] },
     { id: 5, url: 'img/5.jpg', keywords: ['meme'] },
@@ -32,7 +24,7 @@ var gMeme = {
     selectedImgId: 1,
     selectedLineIdx: 0,
     lines: [
-        { txt: 'I sometimes eat Falafel', size: 30, color: '#ffffff' },
+        { txt: 'I sometimes eat Falafel', size: 30, color: '#ffffff', font: 'Impact', align: 'center' },
         {
             txt: "new Line",
             size: 30,
@@ -40,7 +32,9 @@ var gMeme = {
             posX: 188.474609375,
             posY: 420,
             width: 123.05078125,
-            height: 36
+            height: 36,
+            font: 'Impact',
+            align: 'center',
         }
     ]
 }
@@ -75,14 +69,21 @@ function setColor(color) {
     gMeme.lines[gMeme.selectedLineIdx].color = color
 }
 
+function setFont(font) {
+    getSelectedLine().font = font
+}
+
+function setAlign(align) {
+    getSelectedLine().align = align
+}
+
 function changeFontSize(diff) {
     getSelectedLine().size += diff
 }
 
 function addLine() {
-    gMeme.lines.push({ txt: 'New Line', size: 30, color: '#ffffff' })
+    gMeme.lines.push({ txt: 'New Line', size: 30, color: '#ffffff', font: 'Impact', align: 'center' })
     gMeme.selectedLineIdx = gMeme.lines.length - 1
-
 }
 
 function setSelectedLine(idx) {

@@ -1,0 +1,19 @@
+@font-face {
+    font-family: 'Impact';
+    src: url('../../fonts/impact.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'ComicNeue';
+    src: url('../../fonts/ComicNeue-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Oswald';
+    src: url('../../fonts/Oswald-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Anton';
+    src: url('../../fonts/Anton-Regular.ttf') format('truetype');
+}

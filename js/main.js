@@ -1,16 +1,20 @@
 'use strict'
 
-let gElCanvas
-let gCtx
-let gElTextInput
-let gElColorInput
-let gCurrSelectedImg = new Image() //create pic to paint on canvas
+var gElCanvas
+var gCtx
+var gElTextInput
+var gElColorInput
+var gElFontSelect
+
+var gCurrSelectedImg = new Image() //create pic to paint on canvas
 
 function onInit() {
     gElCanvas = document.querySelector('.meme-canvas')
     gCtx = gElCanvas.getContext('2d')
     gElTextInput = document.querySelector('.myTextInput')
     gElColorInput = document.getElementById('color-picker')
+
+    gElFontSelect = document.getElementById('font-select')
 
     //listen to clicks on Cancas
     gElCanvas.addEventListener('mousedown', onCanvasClick)
