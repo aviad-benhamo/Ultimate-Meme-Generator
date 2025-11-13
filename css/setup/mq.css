@@ -1,0 +1,29 @@
+/* TABLET --- */
+@media (min-width: 768px) {
+    .meme-editor {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .canvas-container {
+        max-width: 500px;
+        margin-inline: auto;
+    }
+
+    .control-buttons {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    }
+
+}
+
+/* DESKTOP --- */
+@media (min-width: 992px) {
+    .main-layout {
+        display: grid;
+        grid-template-columns: 1fr minmax(auto, 1320px) 1fr;
+        padding-inline: 0;
+    }
+
+    .main-layout>* {
+        grid-column: 2;
+    }
+}

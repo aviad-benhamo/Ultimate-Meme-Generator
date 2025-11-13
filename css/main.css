@@ -6,8 +6,8 @@
 
 /* COMPONENTS */
 @import url('components/image-gallery.css');
+@import url('components/meme-editor.css');
 
 
-.hidden {
-    display: none;
-}
+/* MQ */
+@import url('setup/mq.css');

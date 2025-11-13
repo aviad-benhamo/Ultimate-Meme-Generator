@@ -1,0 +1,73 @@
+.meme-editor {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+
+.canvas-container {
+    width: 100%;
+}
+
+.meme-canvas {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background-color: white;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.controls .myTextInput {
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.control-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.control-buttons>* {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+}
+
+.control-buttons input[type="color"] {
+    padding: 2px;
+    min-width: 45px;
+}
+
+.control-buttons>*:hover:not(input[type="color"]) {
+    background-color: #e9e9e9;
+}
+
+.hidden {
+    display: none;
+}

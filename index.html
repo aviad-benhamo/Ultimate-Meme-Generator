@@ -17,22 +17,32 @@
     </header>
 
     <!-- 2. MAIN CONTENT -->
-    <main class="main-content main-layout">
+    <main class="main-layout">
 
         <section class="image-gallery"></section>
 
+
         <section class="meme-editor hidden">
-            <canvas class="meme-canvas" width="500" height="500"></canvas>
+
+            <div class="canvas-container">
+                <canvas class="meme-canvas" width="500" height="500"></canvas>
+            </div>
 
             <div class="controls">
                 <input oninput="onTextInput()" class="myTextInput" type="text" placeholder="Enter text here">
-                <input type="color" id="color-picker" value="#ffffff" onchange="onSetColor(this.value)" />
-                <a href="#" class="btn" onclick="onDownloadImg(this)" download="my-img.jpg">Download</a>
-                <button onclick="onChangeFontSize(2)" class="increase-font-size">+</button>
-                <button onclick="onChangeFontSize(-2)" class="decrease-font-size">-</button>
-                <button onclick="onAddLine()" class="add-line">Add Line</button>
-                <button onclick="onSwitchLine()" class="switch-line">Switch Line</button>
+
+                <div class="control-buttons">
+                    <input type="color" id="color-picker" value="#ffffff" onchange="onSetColor(this.value)" />
+                    <button onclick="onSwitchLine()" class="btn-switch-line">Switch Line</button>
+                    <button onclick="onAddLine()" class="btn-add-line">Add Line</button>
+                    <button onclick="onChangeFontSize(2)" class="btn-increase-font">+</button>
+                    <button onclick="onChangeFontSize(-2)" class="btn-decrease-font">-</button>
+                    <a href="#" class="btn btn-download" onclick="onDownloadImg(this)"
+                        download="my-img.jpg">Download</a>
+                </div>
+
             </div>
+
         </section>
 
     </main>
