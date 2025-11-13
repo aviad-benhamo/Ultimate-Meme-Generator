@@ -9,20 +9,40 @@
 </head>
 
 <body onload="onInit()">
-    <header>Meme Generator</header>
-    <section class="image-gallery">
-    </section>
-    <section class="meme-editor hidden">
-        <canvas class="meme-canvas" width="500" height="500"></canvas>
-        <input oninput="onTextInput()" class="myTextInput" type="text" placeholder="Enter text here">
-        <input type="color" id="color-picker" value="#000000" onchange="onSetColor(this.value)" />
-        <a href="#" class="btn" onclick="onDownloadImg(this)" download="my-img.jpg">Download</a>
-        <button onclick="onChangeFontSize(2)" class="increase-font-size">+</button>
-        <button onclick="onChangeFontSize(-2)" class="decrease-font-size">-</button>
-        <button onclick="onAddLine()" class="add-line">Add Line</button>
-        <button onclick="onSwitchLine()" class="switch-line">Switch Line</button>
-    </section>
+    <!-- 1. HEADER -->
+    <header class="main-header">
+        <div class="main-layout">
+            <h1>Meme Generator</h1>
+        </div>
+    </header>
 
+    <!-- 2. MAIN CONTENT -->
+    <main class="main-content main-layout">
+
+        <section class="image-gallery"></section>
+
+        <section class="meme-editor hidden">
+            <canvas class="meme-canvas" width="500" height="500"></canvas>
+
+            <div class="controls">
+                <input oninput="onTextInput()" class="myTextInput" type="text" placeholder="Enter text here">
+                <input type="color" id="color-picker" value="#ffffff" onchange="onSetColor(this.value)" />
+                <a href="#" class="btn" onclick="onDownloadImg(this)" download="my-img.jpg">Download</a>
+                <button onclick="onChangeFontSize(2)" class="increase-font-size">+</button>
+                <button onclick="onChangeFontSize(-2)" class="decrease-font-size">-</button>
+                <button onclick="onAddLine()" class="add-line">Add Line</button>
+                <button onclick="onSwitchLine()" class="switch-line">Switch Line</button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 3. FOOTER -->
+    <footer class="main-footer">
+        <div class="main-layout">
+            <p>Created by Aviad Ben Hamo - Coding Academy</p>
+        </div>
+    </footer>
 
     <script src="js/meme-service.js"></script>
     <script src="js/meme-controller.js"></script>

@@ -1,0 +1,40 @@
+/* Main Lauout */
+
+.main-layout {
+    display: grid;
+    grid-template-columns: 1fr minmax(auto, 1320px) 1fr;
+}
+
+.main-layout>* {
+    grid-column: 2;
+}
+
+
+/* Page Structure */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-header {
+    background-color: #f0f0f0;
+}
+
+.main-content {
+    flex-grow: 1;
+}
+
+.main-footer {
+    background-color: #333;
+    color: #fff;
+}
+
+.main-header .main-layout,
+.main-footer .main-layout {
+    padding: 1rem;
+}
+
+.main-content.main-layout {
+    padding: 1rem;
+}
