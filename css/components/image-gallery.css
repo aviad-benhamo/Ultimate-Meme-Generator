@@ -10,12 +10,10 @@
     object-fit: cover;
     border-radius: 8px;
     cursor: pointer;
-    filter: grayscale(1);
     transition: transform 0.3s, filter 0.3s;
 
 }
 
 .image-gallery img:hover {
     transform: scale(1.03);
-    filter: grayscale(0);
 }
