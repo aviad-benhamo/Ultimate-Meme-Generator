@@ -90,6 +90,7 @@ function onImgSelect(imgId) {
     //hide gallery after selecting pic
     document.querySelector('.image-gallery').classList.add('hidden')
     document.querySelector('.meme-editor').classList.remove('hidden')
+    document.querySelector('.gallery-controls').classList.add('hidden')
 }
 
 function onDownloadImg(elLink) {

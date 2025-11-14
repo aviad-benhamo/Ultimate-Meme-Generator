@@ -25,18 +25,7 @@ var gMeme = {
     selectedLineIdx: 0,
     lines: [
         { txt: 'I sometimes eat Falafel', size: 30, color: '#ffffff', font: 'Impact', align: 'center', y: 50 },
-        {
-            txt: "new Line",
-            size: 30,
-            color: "#ffffff",
-            posX: 188.474609375,
-            posY: 420,
-            width: 123.05078125,
-            height: 36,
-            font: 'Impact',
-            align: 'center',
-            y: 450
-        }
+        { txt: "new Line", size: 30, color: "#ffffff", posX: 188.474609375, posY: 420, width: 123.05078125, height: 36, font: 'Impact', align: 'center', y: 450 }
     ]
 }
 
@@ -64,6 +53,12 @@ function setLineTxt(text) {
 
 function setImg(imgId) {
     gMeme.selectedImgId = imgId
+    gMeme.selectedLineIdx = 0
+    gMeme.lines = [
+        { txt: 'Your Text Here', size: 30, color: '#ffffff', font: 'Impact', align: 'center', y: 50 },
+        { txt: "new Line", size: 30, color: "#ffffff", posX: 188.474609375, posY: 420, width: 123.05078125, height: 36, font: 'Impact', align: 'center', y: 450 }
+    ]
+
 }
 
 function setColor(color) {
@@ -112,4 +107,10 @@ function switchLine() {
         currentIdx = 0
     }
     gMeme.selectedLineIdx = currentIdx
+}
+
+function getRandomImgId() {
+    const imgs = getImgs()
+    const randomIdx = Math.floor(Math.random() * imgs.length)
+    return imgs[randomIdx].id
 }

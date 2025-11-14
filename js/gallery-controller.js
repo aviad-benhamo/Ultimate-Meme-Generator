@@ -10,3 +10,10 @@ function renderGallery() {
     const elImages = document.querySelector('.image-gallery')
     elImages.innerHTML = strHTMLs.join('')
 }
+
+function onRandomMeme() {
+    const randomId = getRandomImgId()
+    onImgSelect(randomId)
+
+    document.querySelector('.gallery-controls').classList.add('hidden')
+}
