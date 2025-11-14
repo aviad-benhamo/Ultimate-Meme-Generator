@@ -31,7 +31,7 @@ function drawText(line, idx) {
     //Y location
     let y = line.y
 
-    //write text
+    // Draw text
     gCtx.fillText(line.txt, x, y)
     gCtx.strokeText(line.txt, x, y)
 
@@ -80,23 +80,27 @@ function onTextInput() {
 
 function onImgSelect(imgId) {
     setImg(imgId)
-
     gCurrSelectedImg.src = getImgById(imgId).url
 
-    updateTextInput()
-    updateColorInput()
-    updateFontSelect()
+    updateEditorControls()
+    onShowEditor()
+}
 
-    //hide gallery after selecting pic
-    document.querySelector('.image-gallery').classList.add('hidden')
-    document.querySelector('.meme-editor').classList.remove('hidden')
-    document.querySelector('.gallery-controls').classList.add('hidden')
+function onEditSavedMeme(memeId) {
+    const img = setMemeForEdit(memeId) // Sets gMeme to saved state
+    if (!img) return
+
+    gCurrSelectedImg.src = img.url // Load correct background
+
+    updateEditorControls()
+    onShowEditor() // Navigate to editor view
+    // renderMeme() will be called by gCurrSelectedImg.onload
 }
 
 function onDownloadImg(elLink) {
     //Remove Frame
     const currIdx = getMeme().selectedLineIdx
-    gMeme.selectedLineIdx = -1
+    setSelectedLine(-1) // Deselect line
     renderMeme()
 
     //Download Pic
@@ -104,8 +108,28 @@ function onDownloadImg(elLink) {
     elLink.href = imgContent
 
     //Return Frame and rerender
-    gMeme.selectedLineIdx = currIdx
+    setSelectedLine(currIdx) // Reselect line
+    renderMeme() // Render back with frame
+}
+
+function onSaveMeme() {
+    // 1. Render without frame for a clean preview
+    const currIdx = getMeme().selectedLineIdx
+    setSelectedLine(-1)
     renderMeme()
+
+    // 2. Get the preview image data
+    const previewImg = gElCanvas.toDataURL('image/jpeg')
+
+    // 3. Restore selection and render for user
+    setSelectedLine(currIdx)
+    renderMeme()
+
+    // 4. Save the meme (data + preview) to service
+    saveMeme(previewImg)
+
+    // 5. Show the saved memes gallery
+    onShowSavedMemes()
 }
 
 function onSetColor(color) {
@@ -125,16 +149,13 @@ function onSetAlign(align) {
 
 function onChangeFontSize(diff) {
     const line = getSelectedLine()
+    if (!line) return
     const newSize = line.size + diff
-    //Limit small size
     if (newSize < 14) return
+
     gCtx.font = `${newSize}px ${line.font}`
     const textWidth = gCtx.measureText(line.txt).width
-    const canvasWidth = gElCanvas.width
-    //Limit too big size
-    if (textWidth > canvasWidth - 22) {
-        return
-    }
+    if (textWidth > gElCanvas.width - 22) return
 
     changeFontSize(diff)
     renderMeme()
@@ -148,27 +169,33 @@ function onSetUpDown(diff) {
 function onDeleteLine() {
     deleteSelectedLine()
     renderMeme()
-
-    // Sync UI controls to the new selected line
-    updateTextInput()
-    updateColorInput()
-    updateFontSelect()
+    updateEditorControls()
 }
 
 function onAddLine() {
     addLine()
     renderMeme()
-    updateTextInput()
-    updateColorInput()
-    updateFontSelect()
+    updateEditorControls()
 }
 
 function onSwitchLine() {
     switchLine()
     renderMeme()
-    updateTextInput()
-    updateColorInput()
-    updateFontSelect()
+    updateEditorControls()
+}
+
+function updateEditorControls() {
+    const line = getSelectedLine()
+    if (!line) {
+        // If no line is selected (e.g., after deleting last line - though we prevent this)
+        gElTextInput.value = ''
+        gElColorInput.value = '#ffffff'
+        gElFontSelect.value = 'Impact'
+        return
+    }
+    gElTextInput.value = line.txt
+    gElColorInput.value = line.color
+    gElFontSelect.value = line.font
 }
 
 function updateTextInput() {
@@ -195,17 +222,18 @@ function onCanvasClick(ev) {
     const clickX = pos.x * scaleX
     const clickY = pos.y * scaleY
 
-
     const clickedLineIdx = findClickedLine(clickX, clickY)
 
-    if (clickedLineIdx === -1) return
-
-    setSelectedLine(clickedLineIdx)
+    if (clickedLineIdx === -1) {
+        // If clicked outside, deselect
+        setSelectedLine(-1)
+    } else {
+        // If clicked a line, select it
+        setSelectedLine(clickedLineIdx)
+    }
 
     renderMeme()
-    updateTextInput()
-    updateColorInput()
-    updateFontSelect()
+    updateEditorControls()
 }
 
 function findClickedLine(x, y) {
@@ -219,16 +247,17 @@ function findClickedLine(x, y) {
 }
 
 function getEvPos(ev) {
-    if (ev.touches) {
-        return {
-            x: ev.touches[0].clientX - ev.target.offsetLeft - ev.target.clientLeft,
-            y: ev.touches[0].clientY - ev.target.offsetTop - ev.target.clientTop,
+    let pos = {
+        x: ev.offsetX,
+        y: ev.offsetY,
+    }
+
+    if (ev.touches && ev.touches.length > 0) {
+        const rect = ev.target.getBoundingClientRect()
+        pos = {
+            x: ev.touches[0].clientX - rect.left,
+            y: ev.touches[0].clientY - rect.top,
         }
     }
-    else {
-        return {
-            x: ev.offsetX,
-            y: ev.offsetY,
-        }
-    }
+    return pos
 }

@@ -8,13 +8,11 @@
     align-self: stretch;
 }
 
-
 .canvas-container {
     width: 100%;
     max-width: 300px;
     margin-inline: auto;
     max-height: 500px;
-
 }
 
 .meme-canvas {
@@ -53,7 +51,8 @@
 }
 
 .control-group button,
-.controls .btn-download {
+.controls .btn-download,
+.controls .btn-save {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -67,16 +66,45 @@
     align-items: center;
     justify-content: center;
     min-height: 45px;
-}
-
-.controls .btn-download {
+    color: #333;
+    /* Ensure text color is set */
     text-decoration: none;
+    /* Ensure links look like buttons */
 }
 
 .control-group button:hover,
-.controls .btn-download:hover {
+.controls .btn-download:hover,
+.controls .btn-save:hover {
+    /* Added .btn-save */
     background-color: #e9e9e9;
 }
+
+/* Style for save/download group */
+.share-save {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.btn-save {
+    background-color: #28a745;
+    color: white;
+    border-color: #28a745;
+}
+
+.btn-save:hover {
+    background-color: #218838;
+}
+
+.btn-download {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.btn-download:hover {
+    background-color: #0069d9;
+}
+
 
 .style-controls input[type="color"] {
     width: 100%;
@@ -100,6 +128,11 @@
 .line-controls,
 .size-controls {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* Updated line controls to fit 3 buttons */
+.line-controls {
+    grid-template-columns: repeat(3, 1fr);
 }
 
 .align-controls {

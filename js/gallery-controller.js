@@ -14,6 +14,23 @@ function renderGallery() {
 function onRandomMeme() {
     const randomId = getRandomImgId()
     onImgSelect(randomId)
+}
 
-    document.querySelector('.gallery-controls').classList.add('hidden')
+// SAVED MEMES GALLERY
+
+function renderSavedMemes() {
+    const memes = getSavedMemes()
+
+    // Handle empty state
+    if (!memes || memes.length === 0) {
+        gElSavedMemes.innerHTML = `<p class="empty-message">No saved memes yet!</p>`
+        return
+    }
+
+    const strHTMLs = memes.map(meme => {
+        // Use the saved preview image
+        return `<img src="${meme.previewImg}" onclick="onEditSavedMeme('${meme.id}')">`
+    })
+
+    gElSavedMemes.innerHTML = strHTMLs.join('')
 }

@@ -8,7 +8,10 @@
 
 
 /* COMPONENTS */
+@import url('components/header.css');
+@import url('components/gallery-controls.css');
 @import url('components/image-gallery.css');
+@import url('components/saved-memes.css');
 @import url('components/meme-editor.css');
 
 

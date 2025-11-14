@@ -11,8 +11,15 @@
 <body onload="onInit()">
     <!-- 1. HEADER  -->
     <header class="main-header">
-        <div class="main-layout">
-            <h1>Meme Generator</h1>
+        <div class="main-layout nav-layout">
+            <!-- Clicking logo shows gallery -->
+            <h1 class="logo" onclick="onShowGallery()">Meme Generator</h1>
+            <nav class="main-nav">
+                <ul class="clean-list">
+                    <li><a href="#" onclick="onShowGallery()">Gallery</a></li>
+                    <li><a href="#" onclick="onShowSavedMemes()">Memes</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
@@ -21,8 +28,9 @@
         <section class="gallery-controls">
             <button onclick="onRandomMeme()" class="btn-lucky">I'm Feeling Lucky</button>
         </section>
-        
+
         <section class="image-gallery"></section>
+        <section class="saved-memes-gallery hidden"></section>
 
         <section class="meme-editor hidden">
 
@@ -37,6 +45,7 @@
                     <button onclick="onSwitchLine()" class="btn-switch-line">Switch Line</button>
                     <button onclick="onAddLine()" class="btn-add-line">Add Line</button>
                     <button onclick="onDeleteLine()" class="btn-delete">Delete Line</button>
+                    <button onclick="onSaveMeme()" class="btn-save-meme">Save Meme</button>
                 </div>
 
                 <div class="control-group size-controls">
@@ -67,7 +76,11 @@
                     </select>
                 </div>
 
-                <a href="#" class="btn btn-download" onclick="onDownloadImg(this)" download="my-img.jpg">Download</a>
+                <div class="control-group share-save">
+                    <button onclick="onSaveMeme()" class="btn btn-save">Save</button>
+                    <a href="#" class="btn btn-download" onclick="onDownloadImg(this)"
+                        download="my-img.jpg">Download</a>
+                </div>
             </div>
 
         </section>
@@ -81,6 +94,7 @@
         </div>
     </footer>
 
+    <script src="js/utils.js"></script>
     <script src="js/meme-service.js"></script>
     <script src="js/meme-controller.js"></script>
     <script src="js/gallery-controller.js"></script>

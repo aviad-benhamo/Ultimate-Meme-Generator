@@ -1,4 +1,9 @@
 'use strict'
+
+const STORAGE_KEY = 'memesDB'
+var gSavedMemes = []
+
+
 var gImgs = [
     { id: 1, url: 'img/1.jpg', keywords: ['funny', 'cat'] },
     { id: 2, url: 'img/2.jpg', keywords: ['funny', 'dog'] },
@@ -30,6 +35,7 @@ var gMeme = {
 }
 
 var gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
+_loadMemesFromStorage() // Load saved memes on script start
 
 function getMeme() {
     return gMeme
@@ -113,4 +119,46 @@ function getRandomImgId() {
     const imgs = getImgs()
     const randomIdx = Math.floor(Math.random() * imgs.length)
     return imgs[randomIdx].id
+}
+
+// --- SAVED MEMES (localStorage) ---
+
+function getSavedMemes() {
+    return gSavedMemes
+}
+
+// Called by controller to load a saved meme into the editor
+function setMemeForEdit(memeId) {
+    const savedMeme = gSavedMemes.find(meme => meme.id === memeId)
+    if (!savedMeme) return null
+
+    // Set the global gMeme to the saved data
+    gMeme = savedMeme.memeData
+
+    // Return the background image object for the controller
+    return getImgById(gMeme.selectedImgId)
+}
+
+// Called by controller to save the current meme
+function saveMeme(previewImg) {
+    // Create the object to save
+    const savedMeme = {
+        id: makeId(),
+        memeData: JSON.parse(JSON.stringify(gMeme)), // Deep copy of gMeme
+        previewImg: previewImg
+    }
+
+    gSavedMemes.push(savedMeme)
+    _saveMemesToStorage()
+}
+
+function _loadMemesFromStorage() {
+    const memes = loadFromStorage(STORAGE_KEY)
+    if (memes && memes.length > 0) {
+        gSavedMemes = memes
+    }
+}
+
+function _saveMemesToStorage() {
+    saveToStorage(STORAGE_KEY, gSavedMemes)
 }

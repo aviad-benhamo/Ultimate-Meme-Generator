@@ -1,0 +1,21 @@
+.gallery-controls {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.btn-lucky {
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(45deg, #ff6b6b, #f06595);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn-lucky:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+}

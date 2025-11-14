@@ -1,0 +1,28 @@
+.saved-memes-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+}
+
+.saved-memes-gallery img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s, filter 0.3s;
+}
+
+.saved-memes-gallery img:hover {
+    transform: scale(1.03);
+    filter: brightness(1.1);
+}
+
+.empty-message {
+    font-size: 1.2rem;
+    color: #555;
+    text-align: center;
+    grid-column: 1 / -1;
+    /* Span all columns */
+    margin-top: 30px;
+}
