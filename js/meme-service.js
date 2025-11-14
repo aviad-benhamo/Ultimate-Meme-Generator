@@ -92,6 +92,15 @@ function addLine() {
     gMeme.selectedLineIdx = gMeme.lines.length - 1
 }
 
+function deleteSelectedLine() {
+    if (gMeme.lines.length <= 1) return
+
+    const idx = gMeme.selectedLineIdx
+    gMeme.lines.splice(idx, 1)
+
+    gMeme.selectedLineIdx = 0
+}
+
 function setSelectedLine(idx) {
     gMeme.selectedLineIdx = idx
 }
@@ -104,4 +113,3 @@ function switchLine() {
     }
     gMeme.selectedLineIdx = currentIdx
 }
-

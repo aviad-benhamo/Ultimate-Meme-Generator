@@ -144,6 +144,15 @@ function onSetUpDown(diff) {
     renderMeme()
 }
 
+function onDeleteLine() {
+    deleteSelectedLine()
+    renderMeme()
+
+    // Sync UI controls to the new selected line
+    updateTextInput()
+    updateColorInput()
+    updateFontSelect()
+}
 
 function onAddLine() {
     addLine()
