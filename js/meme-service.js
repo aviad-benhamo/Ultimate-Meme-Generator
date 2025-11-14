@@ -24,7 +24,7 @@ var gMeme = {
     selectedImgId: 1,
     selectedLineIdx: 0,
     lines: [
-        { txt: 'I sometimes eat Falafel', size: 30, color: '#ffffff', font: 'Impact', align: 'center' },
+        { txt: 'I sometimes eat Falafel', size: 30, color: '#ffffff', font: 'Impact', align: 'center', y: 50 },
         {
             txt: "new Line",
             size: 30,
@@ -35,6 +35,7 @@ var gMeme = {
             height: 36,
             font: 'Impact',
             align: 'center',
+            y: 450
         }
     ]
 }
@@ -81,8 +82,13 @@ function changeFontSize(diff) {
     getSelectedLine().size += diff
 }
 
+function moveLineVertical(diff) {
+    const line = getSelectedLine()
+    line.y += diff
+}
+
 function addLine() {
-    gMeme.lines.push({ txt: 'New Line', size: 30, color: '#ffffff', font: 'Impact', align: 'center' })
+    gMeme.lines.push({ txt: 'New Line', size: 30, color: '#ffffff', font: 'Impact', align: 'center', y: 250 })
     gMeme.selectedLineIdx = gMeme.lines.length - 1
 }
 

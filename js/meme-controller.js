@@ -29,10 +29,7 @@ function drawText(line, idx) {
     }
 
     //Y location
-    let y
-    if (idx === 0) y = 50
-    else if (idx === 1) y = gElCanvas.height - 50
-    else y = gElCanvas.height / 2
+    let y = line.y
 
     //write text
     gCtx.fillText(line.txt, x, y)
@@ -141,6 +138,12 @@ function onChangeFontSize(diff) {
     changeFontSize(diff)
     renderMeme()
 }
+
+function onSetUpDown(diff) {
+    moveLineVertical(diff)
+    renderMeme()
+}
+
 
 function onAddLine() {
     addLine()
