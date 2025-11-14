@@ -152,6 +152,14 @@ function saveMeme(previewImg) {
     _saveMemesToStorage()
 }
 
+function deleteSavedMeme(memeId) {
+    const memeIdx = gSavedMemes.findIndex(meme => meme.id === memeId)
+    if (memeIdx === -1) return
+
+    gSavedMemes.splice(memeIdx, 1)
+    _saveMemesToStorage()
+}
+
 function _loadMemesFromStorage() {
     const memes = loadFromStorage(STORAGE_KEY)
     if (memes && memes.length > 0) {

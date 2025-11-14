@@ -110,6 +110,8 @@ function onDownloadImg(elLink) {
     //Return Frame and rerender
     setSelectedLine(currIdx) // Reselect line
     renderMeme() // Render back with frame
+
+    showUserMsg('Download started!')
 }
 
 function onSaveMeme() {
@@ -129,6 +131,7 @@ function onSaveMeme() {
     saveMeme(previewImg)
 
     // 5. Show the saved memes gallery
+    showUserMsg('Meme saved!')
     onShowSavedMemes()
 }
 
