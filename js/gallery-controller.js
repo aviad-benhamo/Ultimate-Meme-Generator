@@ -15,6 +15,25 @@ function onRandomMeme() {
     onImgSelect(randomId)
 }
 
+function onImgInput(ev) {
+    // Call the utility function, and pass 'onUserImageReady' as the callback
+    loadImageFromInput(ev, onUserImageReady)
+}
+
+function onUserImageReady(img) {
+    // 1. Save the image dataURL in the service (gMeme)
+    // We use 0 as an ID to signify it's a user-uploaded image
+    setImg(0, img.src)
+
+    // 2. Set the global gCurrSelectedImg to this new image.
+    // This will trigger gCurrSelectedImg.onload in main.js
+    gCurrSelectedImg.src = img.src
+
+    // 3. Navigate to the editor
+    onShowEditor()
+
+    // 4. main.js's .onload will handle renderMeme() and updateEditorControls()
+}
 // SAVED MEMES GALLERY
 
 function renderSavedMemes() {

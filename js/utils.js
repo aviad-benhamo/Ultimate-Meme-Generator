@@ -51,3 +51,17 @@ async function uploadImg(imgData, onSuccess) {
         console.error(err)
     }
 }
+
+// --- Image Upload from Device ---
+function loadImageFromInput(ev, onImageReady) {
+    const reader = new FileReader()
+
+    reader.onload = function (event) {
+        const img = new Image()
+        img.onload = () => {
+            onImageReady(img)
+        }
+        img.src = event.target.result
+    }
+    reader.readAsDataURL(ev.target.files[0])
+}

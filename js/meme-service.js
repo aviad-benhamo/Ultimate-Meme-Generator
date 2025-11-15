@@ -28,7 +28,8 @@ var gImgs = [
 var gMeme = {
     selectedImgId: 1,
     selectedLineIdx: 0,
-    lines: []
+    lines: [],
+    uploadedImgData: null
 }
 
 var gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
@@ -54,14 +55,15 @@ function setLineTxt(text) {
     gMeme.lines[gMeme.selectedLineIdx].txt = text
 }
 
-function setImg(imgId) {
-    gMeme.selectedImgId = imgId
+function setImg(imgId, dataURL = null) {
+    gMeme.selectedImgId = imgId // Can be 0 if user-uploaded
+    gMeme.uploadedImgData = dataURL // Store the dataURL
+
     gMeme.selectedLineIdx = 0
     gMeme.lines = [
         { txt: 'Top Text', size: 30, color: '#ffffff', font: 'Impact', align: 'center', y: 50 },
         { txt: 'Bottom Text', size: 30, color: '#ffffff', font: 'Impact', align: 'center', y: 450 }
     ]
-
 }
 
 function setColor(color) {
@@ -135,7 +137,7 @@ function getSavedMemes() {
     return gSavedMemes
 }
 
-// Called by controller to load a saved meme into the editor
+// return the correct image source (gallery or uploaded)
 function setMemeForEdit(memeId) {
     const savedMeme = gSavedMemes.find(meme => meme.id === memeId)
     if (!savedMeme) return null
@@ -143,8 +145,12 @@ function setMemeForEdit(memeId) {
     // Set the global gMeme to the saved data
     gMeme = savedMeme.memeData
 
-    // Return the background image object for the controller
-    return getImgById(gMeme.selectedImgId)
+    // Return the correct image source
+    if (gMeme.uploadedImgData) {
+        return gMeme.uploadedImgData // Return the saved dataURL
+    } else {
+        return getImgById(gMeme.selectedImgId).url // Return the gallery URL
+    }
 }
 
 // Called by controller to save the current meme

@@ -1,21 +1,51 @@
 .gallery-controls {
+    display: flex;
+    /* Use flexbox to align buttons */
+    gap: 15px;
+    /* Add space between buttons */
+    justify-content: center;
+    /* Center buttons */
     margin-bottom: 20px;
-    text-align: center;
+    flex-wrap: wrap;
+    /* Allow wrapping on small screens */
 }
 
-.btn-lucky {
+/* Style for all buttons in this container */
+.gallery-controls .btn {
     padding: 12px 25px;
     font-size: 1.1rem;
     font-weight: bold;
     color: #fff;
-    background: linear-gradient(45deg, #ff6b6b, #f06595);
     border: none;
     border-radius: 8px;
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+    /* For label/links */
+    display: inline-block;
+    /* For label */
+}
+
+.btn-lucky {
+    background: linear-gradient(45deg, #ff6b6b, #f06595);
 }
 
 .btn-lucky:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+}
+
+/* New Upload Button Style */
+.btn-upload {
+    background: linear-gradient(45deg, #20c997, #12b886);
+}
+
+.btn-upload:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(32, 201, 151, 0.4);
+}
+
+/* Hide the actual file input */
+.gallery-controls input[type="file"] {
+    display: none;
 }

@@ -2,8 +2,43 @@
 
 
 function renderMeme() {
-    gCtx.drawImage(gCurrSelectedImg, 0, 0, gElCanvas.width, gElCanvas.height)
+    // --- UPDATED: "object-fit: cover" Logic ---
+    const canvasWidth = gElCanvas.width
+    const canvasHeight = gElCanvas.height
+    const img = gCurrSelectedImg
+
+    // Clear the canvas with a white background (for letterboxing)
+    gCtx.fillStyle = '#ffffff'
+    gCtx.fillRect(0, 0, canvasWidth, canvasHeight)
+
+    // Calculate dimensions
+    const canvasRatio = canvasWidth / canvasHeight // Should be 1
+    const imgRatio = img.naturalWidth / img.naturalHeight
+
+    let dWidth, dHeight, dx, dy
+
+    // This logic is the *opposite* of "contain"
+    if (imgRatio > canvasRatio) {
+        // Image is wider than canvas ("cover" logic: fit height)
+        dHeight = canvasHeight
+        dWidth = canvasHeight * imgRatio
+        dy = 0
+        dx = (canvasWidth - dWidth) / 2 // Center horizontally
+    } else {
+        // Image is taller than or equal to canvas ("cover" logic: fit width)
+        dWidth = canvasWidth
+        dHeight = canvasWidth / imgRatio
+        dx = 0
+        dy = (canvasHeight - dHeight) / 2 // Center vertically
+    }
+
+    // Draw the image centered and scaled
+    gCtx.drawImage(img, dx, dy, dWidth, dHeight)
+    // --- END of "object-fit: cover" Logic ---
+
+
     const meme = getMeme()
+    // Draw each line
     meme.lines.forEach((line, idx) => {
         drawText(line, idx)
     })
@@ -89,9 +124,19 @@ function calculateLineRect(line, x, y) {
 }
 
 function drawTextFrame(line) {
+    // --- UPDATED: Double-stroke frame for visibility ---
+
+    // 1. Draw a wider black stroke as an outline
+    gCtx.strokeStyle = 'black'
+    gCtx.lineWidth = 5
+    gCtx.strokeRect(line.posX, line.posY, line.width, line.height)
+
+    // 2. Draw a thinner white stroke on top
     gCtx.strokeStyle = 'white'
     gCtx.lineWidth = 3
     gCtx.strokeRect(line.posX, line.posY, line.width, line.height)
+
+    // --- END of Update ---
 }
 
 function onTextInput() {
@@ -109,14 +154,14 @@ function onImgSelect(imgId) {
 }
 
 function onEditSavedMeme(memeId) {
-    const img = setMemeForEdit(memeId) // Sets gMeme to saved state
-    if (!img) return
+    // This now returns either a URL or a dataURL
+    const imgSrc = setMemeForEdit(memeId)
+    if (!imgSrc) return
 
-    gCurrSelectedImg.src = img.url // Load correct background
+    gCurrSelectedImg.src = imgSrc // Load correct background, triggers .onload
 
-    updateEditorControls()
+    // .onload will call renderMeme() and updateEditorControls()
     onShowEditor() // Navigate to editor view
-    // renderMeme() will be called by gCurrSelectedImg.onload
 }
 
 function onAddSticker(stickerTxt) {
