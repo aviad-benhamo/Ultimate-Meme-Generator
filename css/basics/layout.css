@@ -5,11 +5,10 @@
 
 /* Page Structure */
 body {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     background-color: #f0f0f0;
-    overflow: hidden;
 }
 
 header {
@@ -20,8 +19,7 @@ header {
 }
 
 main {
-    flex: 1 1 0;
-    overflow-y: auto;
+    flex: 1;
     padding: 15px 0 15px 0;
 }
 
