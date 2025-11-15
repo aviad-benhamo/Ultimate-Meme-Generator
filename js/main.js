@@ -25,6 +25,7 @@ function onInit() {
     gElSavedMemes = document.querySelector('.saved-memes-gallery')
     gElGalleryControls = document.querySelector('.gallery-controls')
     gElToast = document.querySelector('.user-toast')
+    gElToast.addEventListener('click', () => gElToast.classList.add('hidden'))
 
     // Select canvas and controls
     gElCanvas = document.querySelector('.meme-canvas')
@@ -37,7 +38,18 @@ function onInit() {
     gElCanvas.addEventListener('mousedown', onCanvasClick)
     gElCanvas.addEventListener('touchstart', onCanvasClick)
 
-    gCurrSelectedImg.onload = renderMeme //Run the function after selecting the image.
+    gCurrSelectedImg.onload = () => {
+        renderMeme()
+        // Ensure controls are set for the default meme
+        updateEditorControls()
+    }
+
+    setImg(gMeme.selectedImgId)
+    const meme = getMeme()
+    gCurrSelectedImg.src = getImgById(meme.selectedImgId).url
+
+    renderGallery()
+
 
     // On load, show the main gallery
     onShowGallery()

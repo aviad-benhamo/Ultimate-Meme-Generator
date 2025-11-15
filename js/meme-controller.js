@@ -29,24 +29,30 @@ function drawText(line, idx) {
     //Y location
     let y = line.y
 
-    // Draw text and check if sticker
     if (line.isSticker) {
         gCtx.fillText(line.txt, x, y)
     } else {
+        // --- THE FIX IS HERE ---
+        // We must reset both fill and stroke style every time
         gCtx.fillStyle = line.color
-        gCtx.strokeStyle = 'black'
+        gCtx.strokeStyle = 'black' // <-- This line was missing
         gCtx.lineWidth = 2
+        // --- END OF FIX ---
+
         gCtx.fillText(line.txt, x, y)
         gCtx.strokeText(line.txt, x, y)
     }
 
-    //put a frame on selected text
+    //calculate and save line dimensions
+    calculateLineRect(line, x, y)
+
+    //draw the frame if the line is selected
     if (idx === getMeme().selectedLineIdx) {
         drawTextFrame(line, x, y)
     }
 }
 
-function drawTextFrame(line, x, y) {
+function calculateLineRect(line, x, y) {
     gCtx.font = `${line.size}px ${line.font}`
     const textWidth = gCtx.measureText(line.txt).width
     const textHeight = line.size
@@ -80,10 +86,12 @@ function drawTextFrame(line, x, y) {
     line.posY = rectY
     line.width = rectWidth
     line.height = rectHeight
+}
 
+function drawTextFrame(line) {
     gCtx.strokeStyle = 'white'
     gCtx.lineWidth = 3
-    gCtx.strokeRect(rectX, rectY, rectWidth, rectHeight)
+    gCtx.strokeRect(line.posX, line.posY, line.width, line.height)
 }
 
 function onTextInput() {
@@ -300,12 +308,17 @@ function onCanvasClick(ev) {
 
 function findClickedLine(x, y) {
     const lines = getMeme().lines
-    return lines.findIndex(line => {
-        return (
+    // Find the *last* line (top-most) that was clicked
+    for (let i = lines.length - 1; i >= 0; i--) {
+        const line = lines[i]
+        if (
             x >= line.posX && x <= line.posX + line.width &&
             y >= line.posY && y <= line.posY + line.height
-        )
-    })
+        ) {
+            return i // Return index of the clicked line
+        }
+    }
+    return -1 // No line clicked
 }
 
 function getEvPos(ev) {

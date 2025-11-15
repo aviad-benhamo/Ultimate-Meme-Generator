@@ -28,10 +28,7 @@ var gImgs = [
 var gMeme = {
     selectedImgId: 1,
     selectedLineIdx: 0,
-    lines: [
-        { txt: 'I sometimes eat Falafel', size: 30, color: '#ffffff', font: 'Impact', align: 'center', y: 50 },
-        { txt: "new Line", size: 30, color: "#ffffff", posX: 188.474609375, posY: 420, width: 123.05078125, height: 36, font: 'Impact', align: 'center', y: 450 }
-    ]
+    lines: []
 }
 
 var gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
@@ -61,8 +58,8 @@ function setImg(imgId) {
     gMeme.selectedImgId = imgId
     gMeme.selectedLineIdx = 0
     gMeme.lines = [
-        { txt: 'Your Text Here', size: 30, color: '#ffffff', font: 'Impact', align: 'center', y: 50 },
-        { txt: "new Line", size: 30, color: "#ffffff", posX: 188.474609375, posY: 420, width: 123.05078125, height: 36, font: 'Impact', align: 'center', y: 450 }
+        { txt: 'Top Text', size: 30, color: '#ffffff', font: 'Impact', align: 'center', y: 50 },
+        { txt: 'Bottom Text', size: 30, color: '#ffffff', font: 'Impact', align: 'center', y: 450 }
     ]
 
 }
