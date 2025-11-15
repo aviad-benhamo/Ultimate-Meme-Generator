@@ -5,24 +5,24 @@ var gSavedMemes = []
 
 
 var gImgs = [
-    { id: 1, url: 'img/1.jpg', keywords: ['funny', 'cat'] },
-    { id: 2, url: 'img/2.jpg', keywords: ['funny', 'dog'] },
-    { id: 3, url: 'img/3.jpg', keywords: ['meme'] },
-    { id: 4, url: 'img/4.jpg', keywords: ['meme'] },
-    { id: 5, url: 'img/5.jpg', keywords: ['meme'] },
-    { id: 6, url: 'img/6.jpg', keywords: ['meme'] },
-    { id: 7, url: 'img/7.jpg', keywords: ['meme'] },
-    { id: 8, url: 'img/8.jpg', keywords: ['meme'] },
-    { id: 9, url: 'img/9.jpg', keywords: ['meme'] },
-    { id: 10, url: 'img/10.jpg', keywords: ['meme'] },
-    { id: 11, url: 'img/11.jpg', keywords: ['meme'] },
-    { id: 12, url: 'img/12.jpg', keywords: ['meme'] },
-    { id: 13, url: 'img/13.jpg', keywords: ['meme'] },
-    { id: 14, url: 'img/14.jpg', keywords: ['meme'] },
-    { id: 15, url: 'img/15.jpg', keywords: ['meme'] },
-    { id: 16, url: 'img/16.jpg', keywords: ['meme'] },
-    { id: 17, url: 'img/17.jpg', keywords: ['meme'] },
-    { id: 18, url: 'img/18.jpg', keywords: ['meme'] }
+    { id: 1, url: 'img/1.jpg' },
+    { id: 2, url: 'img/2.jpg' },
+    { id: 3, url: 'img/3.jpg' },
+    { id: 4, url: 'img/4.jpg' },
+    { id: 5, url: 'img/5.jpg' },
+    { id: 6, url: 'img/6.jpg' },
+    { id: 7, url: 'img/7.jpg' },
+    { id: 8, url: 'img/8.jpg' },
+    { id: 9, url: 'img/9.jpg' },
+    { id: 10, url: 'img/10.jpg' },
+    { id: 11, url: 'img/11.jpg' },
+    { id: 12, url: 'img/12.jpg' },
+    { id: 13, url: 'img/13.jpg' },
+    { id: 14, url: 'img/14.jpg' },
+    { id: 15, url: 'img/15.jpg' },
+    { id: 16, url: 'img/16.jpg' },
+    { id: 17, url: 'img/17.jpg' },
+    { id: 18, url: 'img/18.jpg' },
 ]
 
 var gMeme = {
@@ -32,29 +32,36 @@ var gMeme = {
     uploadedImgData: null
 }
 
-var gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
 _loadMemesFromStorage() // Load saved memes on script start
 
-function getMeme() {
-    return gMeme
-}
-
-function getSelectedLine() {
-    return gMeme.lines[gMeme.selectedLineIdx]
+function getImgs() {
+    return gImgs
 }
 
 function getImgById(imgId) {
     return gImgs.find(img => img.id === imgId)
 }
 
-function getImgs() {
-    return gImgs
+function getRandomImgId() {
+    const imgs = getImgs()
+    const randomIdx = Math.floor(Math.random() * imgs.length)
+    return imgs[randomIdx].id
 }
 
-function setLineTxt(text) {
-    gMeme.lines[gMeme.selectedLineIdx].txt = text
+
+// --- gMeme (EDITOR) FUNCTIONS ---
+
+function getMeme() {
+    return gMeme
 }
 
+function getSelectedLine() {
+    // Handle cases where no line is selected (idx = -1)
+    if (gMeme.selectedLineIdx < 0) return null
+    return gMeme.lines[gMeme.selectedLineIdx]
+}
+
+// This is the main function to create a new meme
 function setImg(imgId, dataURL = null) {
     gMeme.selectedImgId = imgId // Can be 0 if user-uploaded
     gMeme.uploadedImgData = dataURL // Store the dataURL
@@ -66,24 +73,39 @@ function setImg(imgId, dataURL = null) {
     ]
 }
 
+function setLineTxt(text) {
+    const line = getSelectedLine()
+    if (!line) return
+    line.txt = text
+}
+
 function setColor(color) {
-    gMeme.lines[gMeme.selectedLineIdx].color = color
+    const line = getSelectedLine()
+    if (!line) return
+    line.color = color
 }
 
 function setFont(font) {
-    getSelectedLine().font = font
+    const line = getSelectedLine()
+    if (!line) return
+    line.font = font
 }
 
 function setAlign(align) {
-    getSelectedLine().align = align
+    const line = getSelectedLine()
+    if (!line) return
+    line.align = align
 }
 
 function changeFontSize(diff) {
-    getSelectedLine().size += diff
+    const line = getSelectedLine()
+    if (!line) return
+    line.size += diff
 }
 
 function moveLineVertical(diff) {
     const line = getSelectedLine()
+    if (!line) return
     line.y += diff
 }
 
@@ -104,12 +126,12 @@ function addSticker(stickerTxt) {
 }
 
 function deleteSelectedLine() {
-    if (gMeme.lines.length <= 1) return
+    if (gMeme.lines.length <= 1) return // Prevent deleting the last line
 
     const idx = gMeme.selectedLineIdx
     gMeme.lines.splice(idx, 1)
 
-    gMeme.selectedLineIdx = 0
+    gMeme.selectedLineIdx = 0 // Reset selection to the first line
 }
 
 function setSelectedLine(idx) {
@@ -119,25 +141,19 @@ function setSelectedLine(idx) {
 function switchLine() {
     let currentIdx = gMeme.selectedLineIdx
     currentIdx++
-    if (currentIdx === gMeme.lines.length) {
+    if (currentIdx >= gMeme.lines.length) {
         currentIdx = 0
     }
     gMeme.selectedLineIdx = currentIdx
 }
 
-function getRandomImgId() {
-    const imgs = getImgs()
-    const randomIdx = Math.floor(Math.random() * imgs.length)
-    return imgs[randomIdx].id
-}
 
-// --- SAVED MEMES (localStorage) ---
+// --- gSavedMemes (localStorage) FUNCTIONS ---
 
 function getSavedMemes() {
     return gSavedMemes
 }
 
-// return the correct image source (gallery or uploaded)
 function setMemeForEdit(memeId) {
     const savedMeme = gSavedMemes.find(meme => meme.id === memeId)
     if (!savedMeme) return null
@@ -153,7 +169,6 @@ function setMemeForEdit(memeId) {
     }
 }
 
-// Called by controller to save the current meme
 function saveMeme(previewImg) {
     // Create the object to save
     const savedMeme = {
@@ -174,6 +189,7 @@ function deleteSavedMeme(memeId) {
     _saveMemesToStorage()
 }
 
+// "Private" functions
 function _loadMemesFromStorage() {
     const memes = loadFromStorage(STORAGE_KEY)
     if (memes && memes.length > 0) {

@@ -6,11 +6,10 @@ function renderGallery() {
     const strHTMLs = imgs.map(img => {
         return `<img onclick="onImgSelect(${img.id})" src="${img.url}">`
     })
-
     gElGallery.innerHTML = strHTMLs.join('')
 }
 
-function onRandomMeme() {
+function onRandomMeme() { //Lucky button
     const randomId = getRandomImgId()
     onImgSelect(randomId)
 }
@@ -34,9 +33,9 @@ function onUserImageReady(img) {
 
     // 4. main.js's .onload will handle renderMeme() and updateEditorControls()
 }
-// SAVED MEMES GALLERY
 
-function renderSavedMemes() {
+
+function renderSavedMemes() {// SAVED MEMES GALLERY
     const memes = getSavedMemes()
 
     // Handle empty state
@@ -57,7 +56,6 @@ function renderSavedMemes() {
 
 function onDeleteSavedMeme(ev, memeId) {
     ev.stopPropagation() // Prevent onEditSavedMeme from firing
-
     deleteSavedMeme(memeId) // Call service to delete
     renderSavedMemes() // Re-render the gallery
     showUserMsg('Meme deleted!') // Show feedback

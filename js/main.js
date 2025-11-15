@@ -12,7 +12,7 @@ var gElEditor
 var gElSavedMemes
 var gElGalleryControls
 
-var gElToast
+var gElUserMsg
 var gToastTimer
 
 var gCurrSelectedImg = new Image() //create pic to paint on canvas
@@ -24,8 +24,8 @@ function onInit() {
     gElEditor = document.querySelector('.meme-editor')
     gElSavedMemes = document.querySelector('.saved-memes-gallery')
     gElGalleryControls = document.querySelector('.gallery-controls')
-    gElToast = document.querySelector('.user-toast')
-    gElToast.addEventListener('click', () => gElToast.classList.add('hidden'))
+    gElUserMsg = document.querySelector('.user-toast')
+    gElUserMsg.addEventListener('click', () => gElUserMsg.classList.add('hidden'))
 
     // Select canvas and controls
     gElCanvas = document.querySelector('.meme-canvas')
@@ -47,9 +47,6 @@ function onInit() {
     setImg(gMeme.selectedImgId)
     const meme = getMeme()
     gCurrSelectedImg.src = getImgById(meme.selectedImgId).url
-
-    renderGallery()
-
 
     // On load, show the main gallery
     onShowGallery()
@@ -83,12 +80,12 @@ function onShowSavedMemes() {
 function showUserMsg(msg) {
     if (gToastTimer) clearTimeout(gToastTimer) // Clear existing timer
 
-    const elMsg = gElToast.querySelector('p')
+    const elMsg = gElUserMsg.querySelector('p')
     elMsg.innerText = msg
-    gElToast.classList.remove('hidden')
+    gElUserMsg.classList.remove('hidden')
 
     gToastTimer = setTimeout(() => {
-        gElToast.classList.add('hidden')
+        gElUserMsg.classList.add('hidden')
         gToastTimer = null
     }, 2000) // Hide after 2 seconds
 }

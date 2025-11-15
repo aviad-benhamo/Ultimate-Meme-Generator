@@ -2,7 +2,7 @@
 
 
 function renderMeme() {
-    // --- UPDATED: "object-fit: cover" Logic ---
+    // "object-fit: cover" Logic ---
     const canvasWidth = gElCanvas.width
     const canvasHeight = gElCanvas.height
     const img = gCurrSelectedImg
@@ -34,8 +34,6 @@ function renderMeme() {
 
     // Draw the image centered and scaled
     gCtx.drawImage(img, dx, dy, dWidth, dHeight)
-    // --- END of "object-fit: cover" Logic ---
-
 
     const meme = getMeme()
     // Draw each line
@@ -67,12 +65,11 @@ function drawText(line, idx) {
     if (line.isSticker) {
         gCtx.fillText(line.txt, x, y)
     } else {
-        // --- THE FIX IS HERE ---
         // We must reset both fill and stroke style every time
         gCtx.fillStyle = line.color
-        gCtx.strokeStyle = 'black' // <-- This line was missing
+        gCtx.strokeStyle = 'black'
         gCtx.lineWidth = 2
-        // --- END OF FIX ---
+
 
         gCtx.fillText(line.txt, x, y)
         gCtx.strokeText(line.txt, x, y)
@@ -124,8 +121,6 @@ function calculateLineRect(line, x, y) {
 }
 
 function drawTextFrame(line) {
-    // --- UPDATED: Double-stroke frame for visibility ---
-
     // 1. Draw a wider black stroke as an outline
     gCtx.strokeStyle = 'black'
     gCtx.lineWidth = 5
@@ -135,8 +130,6 @@ function drawTextFrame(line) {
     gCtx.strokeStyle = 'white'
     gCtx.lineWidth = 3
     gCtx.strokeRect(line.posX, line.posY, line.width, line.height)
-
-    // --- END of Update ---
 }
 
 function onTextInput() {
@@ -148,7 +141,6 @@ function onTextInput() {
 function onImgSelect(imgId) {
     setImg(imgId)
     gCurrSelectedImg.src = getImgById(imgId).url
-
     updateEditorControls()
     onShowEditor()
 }
@@ -175,11 +167,9 @@ function onDownloadImg(elLink) {
     const currIdx = getMeme().selectedLineIdx
     setSelectedLine(-1) // Deselect line
     renderMeme()
-
     //Download Pic
     const imgContent = gElCanvas.toDataURL('image/jpeg')
     elLink.href = imgContent
-
     //Return Frame and rerender
     setSelectedLine(currIdx) // Reselect line
     renderMeme() // Render back with frame
@@ -311,21 +301,6 @@ function updateEditorControls() {
         gElColorInput.disabled = false
         gElColorInput.value = line.color
     }
-}
-
-function updateTextInput() {
-    const line = getSelectedLine()
-    gElTextInput.value = line.txt
-}
-
-function updateColorInput() {
-    const line = getSelectedLine()
-    gElColorInput.value = line.color
-}
-
-function updateFontSelect() {
-    const line = getSelectedLine()
-    gElFontSelect.value = line.font
 }
 
 function onCanvasClick(ev) {

@@ -31,9 +31,9 @@ function makeId(length = 5) {
 // --- Cloudinary Upload ---
 
 async function uploadImg(imgData, onSuccess) {
-    const CLOUD_NAME = 'webify' // <--- SET THIS IN YOUR CLOUDINARY ACCOUNT
+    const CLOUD_NAME = 'webify'
     const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`
-    const UPLOAD_PRESET = 'webify' // <--- SET THIS IN YOUR CLOUDINARY ACCOUNT
+    const UPLOAD_PRESET = 'webify'
 
     const formData = new FormData()
     formData.append('file', imgData)
