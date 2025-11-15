@@ -11,8 +11,6 @@ function renderMeme() {
 
 function drawText(line, idx) {
     gCtx.font = `${line.size}px ${line.font}`
-    gCtx.fillStyle = line.color
-    gCtx.strokeStyle = 'black'
     gCtx.lineWidth = 2
 
     let x
@@ -31,9 +29,16 @@ function drawText(line, idx) {
     //Y location
     let y = line.y
 
-    // Draw text
-    gCtx.fillText(line.txt, x, y)
-    gCtx.strokeText(line.txt, x, y)
+    // Draw text and check if sticker
+    if (line.isSticker) {
+        gCtx.fillText(line.txt, x, y)
+    } else {
+        gCtx.fillStyle = line.color
+        gCtx.strokeStyle = 'black'
+        gCtx.lineWidth = 2
+        gCtx.fillText(line.txt, x, y)
+        gCtx.strokeText(line.txt, x, y)
+    }
 
     //put a frame on selected text
     if (idx === getMeme().selectedLineIdx) {
@@ -56,10 +61,19 @@ function drawTextFrame(line, x, y) {
         rectX = x - (textWidth / 2) - padding
     }
 
+    let rectY
+    let rectWidth
+    let rectHeight
 
-    const rectY = y - textHeight
-    const rectWidth = textWidth + (padding * 2)
-    const rectHeight = textHeight + 6
+    if (line.isSticker) {
+        rectY = y - textHeight
+        rectWidth = textWidth + (padding * 2)
+        rectHeight = textHeight + 25
+    } else { //for text
+        rectY = y - textHeight
+        rectWidth = textWidth + (padding * 2)
+        rectHeight = textHeight + 6
+    }
 
     //save the location in the object
     line.posX = rectX
@@ -67,7 +81,7 @@ function drawTextFrame(line, x, y) {
     line.width = rectWidth
     line.height = rectHeight
 
-    gCtx.strokeStyle = line.color
+    gCtx.strokeStyle = 'white'
     gCtx.lineWidth = 3
     gCtx.strokeRect(rectX, rectY, rectWidth, rectHeight)
 }
@@ -95,6 +109,12 @@ function onEditSavedMeme(memeId) {
     updateEditorControls()
     onShowEditor() // Navigate to editor view
     // renderMeme() will be called by gCurrSelectedImg.onload
+}
+
+function onAddSticker(stickerTxt) {
+    addSticker(stickerTxt)
+    renderMeme()
+    updateEditorControls()
 }
 
 function onDownloadImg(elLink) {
@@ -196,9 +216,17 @@ function updateEditorControls() {
         gElFontSelect.value = 'Impact'
         return
     }
-    gElTextInput.value = line.txt
-    gElColorInput.value = line.color
-    gElFontSelect.value = line.font
+    if (line.isSticker) {
+        gElTextInput.value = '(Sticker)'
+        gElTextInput.disabled = true
+        gElColorInput.disabled = true // No color for stickers
+    } else {
+        // Regular text line
+        gElTextInput.value = line.txt
+        gElTextInput.disabled = false
+        gElColorInput.disabled = false
+        gElColorInput.value = line.color
+    }
 }
 
 function updateTextInput() {

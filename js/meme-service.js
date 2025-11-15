@@ -93,6 +93,17 @@ function addLine() {
     gMeme.selectedLineIdx = gMeme.lines.length - 1
 }
 
+function addSticker(stickerTxt) {
+    gMeme.lines.push({
+        txt: stickerTxt,
+        size: 80,
+        align: 'center',
+        y: 250,
+        isSticker: true
+    })
+    gMeme.selectedLineIdx = gMeme.lines.length - 1
+}
+
 function deleteSelectedLine() {
     if (gMeme.lines.length <= 1) return
 
