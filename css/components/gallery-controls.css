@@ -1,23 +1,23 @@
 .gallery-controls {
     display: flex;
     /* Use flexbox to align buttons */
-    gap: 15px;
+    gap: 8px;
     /* Add space between buttons */
     justify-content: center;
     /* Center buttons */
 
     margin-bottom: 15px;
 
-    flex-wrap: wrap;
-    /* Allow wrapping on small screens */
+    flex-wrap: nowrap;
+    /* Prevent wrapping - keep buttons on same line */
 }
 
-/* Style for all buttons in this container */
+/* Style for all buttons in this container - Mobile first */
 .gallery-controls .btn {
     /* --- עדכון ל-Hover --- */
-    padding: 10px 23px;
-    /* הותאם לפצות על הבורדר */
-    font-size: 1.1rem;
+    padding: 8px 16px;
+    /* Smaller padding for mobile */
+    font-size: 0.9rem;
     font-weight: bold;
     color: #fff;
     border: 2px solid transparent;
@@ -30,6 +30,8 @@
     /* For label/links */
     display: inline-block;
     /* For label */
+    white-space: nowrap;
+    /* Prevent text wrapping inside button */
 }
 
 .btn-lucky {
