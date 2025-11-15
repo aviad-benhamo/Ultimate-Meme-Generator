@@ -5,7 +5,12 @@
     /* Add space between buttons */
     justify-content: center;
     /* Center buttons */
+
+    /* --- תיקון רווח קבוע --- */
+    /* הרווח העליון מגיע עכשיו מה-main, אין צורך לכפול אותו */
+    margin-top: 0;
     margin-bottom: 20px;
+
     flex-wrap: wrap;
     /* Allow wrapping on small screens */
 }

@@ -3,26 +3,58 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
 }
 
 .logo {
     cursor: pointer;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #f8f9fa;
 }
+
+.logo-mem {
+    color: #ff6b6b;
+    transition: color 0.3s;
+}
+
+.logo-ester {
+    color: #20c997;
+    transition: color 0.3s;
+}
+
+.logo:hover .logo-mem {
+    color: #f06595;
+}
+
+.logo:hover .logo-ester {
+    color: #12b886;
+    /* גוון שני מהגרדיאנט */
+}
+
+/* --- סוף צבעי לוגו --- */
+
 
 .main-nav ul {
     display: flex;
-    gap: 15px;
+    gap: 10px;
 }
 
 .main-nav a {
     font-size: 1.1rem;
     font-weight: bold;
-    color: #333;
-    padding: 10px 5px;
-    transition: color 0.3s;
+    color: #dee2e6;
+    padding: 10px 18px;
+    border: 1px solid #5a6268;
+    border-radius: 8px;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
 }
 
 .main-nav a:hover {
-    color: #007bff;
+    /* --- עדכון צבע טקסט ב-Hover --- */
+    color: #51aeff;
+    /* גוון כחול בהיר ובולט */
+    background-color: #495057;
+    border-color: #7a8288;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }

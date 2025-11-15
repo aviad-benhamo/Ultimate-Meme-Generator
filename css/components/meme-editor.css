@@ -51,9 +51,7 @@
 }
 
 .control-group button,
-.controls .btn-download,
-.controls .btn-save,
-.controls .btn-share {
+.controls .btn-download {
     /* Added .btn-share */
     padding: 10px;
     border-radius: 5px;
@@ -75,10 +73,7 @@
 }
 
 .control-group button:hover,
-.controls .btn-download:hover,
-.controls .btn-save:hover,
-.controls .btn-share:hover {
-    /* Added .btn-share */
+.controls .btn-download:hover {
     background-color: #e9e9e9;
 }
 

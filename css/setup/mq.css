@@ -35,14 +35,33 @@
 
 /* DESKTOP --- */
 @media (min-width: 992px) {
-    .main-layout {
+
+    /* --- תיקון יישור Header --- */
+
+    /* 1. נגדיר את פריסת הגריד רק עבור MAIN ו-FOOTER */
+    main.main-layout,
+    footer .main-layout {
+        /* סלקטור מתוקן ל-div בתוך ה-footer */
         display: grid;
         grid-template-columns: minmax(10px, 1fr) minmax(auto, 1320px) minmax(10px, 1fr);
         padding-inline: 0;
     }
 
-    .main-layout>* {
+    main.main-layout>*,
+    footer .main-layout>* {
+        /* סלקטור מתוקן ל-div בתוך ה-footer */
         grid-column: 2;
+    }
+
+    /* 2. עבור ה-HEADER, נגביל את הרוחב שלו ונמרכז אותו */
+    /* זה ישמור על ה-display:flex שלו מ-header.css */
+    .main-header .main-layout {
+        max-width: 1320px;
+        /* נגביל את הרוחב כמו ה-grid */
+        margin-inline: auto;
+        /* נמרכז אותו */
+        padding-inline: 0;
+        /* נבטל את הפדינג של המובייל */
     }
 }
 

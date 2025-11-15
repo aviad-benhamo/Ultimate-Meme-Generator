@@ -12,14 +12,16 @@ body {
 }
 
 header {
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #343a40;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     padding-block: 10px;
 }
 
 main {
     flex-grow: 1;
-    margin-block: 20px;
+    padding-top: 20px;
+    padding-bottom: 0;
+    margin-block: 0;
 }
 
 footer {
