@@ -2,6 +2,9 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 20px;
+
+    /* --- מוודאים שאין כאן רווח תחתון --- */
+    /* margin-bottom: 20px; (הוסר) */
 }
 
 .meme-editor>* {
@@ -50,9 +53,10 @@
     gap: 10px;
 }
 
+/* --- ניקוי סלקטור --- */
+/* הסרנו את .controls .btn-save ו- .controls .btn-share שהיו מיותרים */
 .control-group button,
 .controls .btn-download {
-    /* Added .btn-share */
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -72,6 +76,7 @@
     /* Ensure links look like buttons */
 }
 
+/* --- ניקוי סלקטור hover --- */
 .control-group button:hover,
 .controls .btn-download:hover {
     background-color: #e9e9e9;
@@ -105,7 +110,7 @@
 }
 
 .btn-download {
-    background-color: #007bff;
+    background-color: 007bff;
     color: white;
     border-color: #007bff;
 }

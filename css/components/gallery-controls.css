@@ -6,10 +6,7 @@
     justify-content: center;
     /* Center buttons */
 
-    /* --- תיקון רווח קבוע --- */
-    /* הרווח העליון מגיע עכשיו מה-main, אין צורך לכפול אותו */
-    margin-top: 0;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 
     flex-wrap: wrap;
     /* Allow wrapping on small screens */
@@ -17,14 +14,18 @@
 
 /* Style for all buttons in this container */
 .gallery-controls .btn {
-    padding: 12px 25px;
+    /* --- עדכון ל-Hover --- */
+    padding: 10px 23px;
+    /* הותאם לפצות על הבורדר */
     font-size: 1.1rem;
     font-weight: bold;
     color: #fff;
-    border: none;
+    border: 2px solid transparent;
+    /* הוספנו בורדר שקוף */
     border-radius: 8px;
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
+    /* הוספנו את מאפייני ה-Hover ל-transition */
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s, color 0.3s, border-color 0.3s;
     text-decoration: none;
     /* For label/links */
     display: inline-block;
@@ -38,6 +39,13 @@
 .btn-lucky:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+    /* --- אפקט Hover חדש --- */
+    background: #fff;
+    /* רקע לבן */
+    color: #ff6b6b;
+    /* טקסט בצבע הוורוד */
+    border-color: #ff6b6b;
+    /* בורדר בצבע הוורוד */
 }
 
 /* New Upload Button Style */
@@ -48,6 +56,13 @@
 .btn-upload:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 15px rgba(32, 201, 151, 0.4);
+    /* --- אפקט Hover חדש --- */
+    background: #fff;
+    /* רקע לבן */
+    color: #20c997;
+    /* טקסט בצבע הירוק */
+    border-color: #20c997;
+    /* בורדר בצבע הירוק */
 }
 
 /* Hide the actual file input */
