@@ -6,7 +6,6 @@
 @import url('basics/helpers.css');
 @import url('basics/layout.css');
 
-
 /* COMPONENTS */
 @import url('components/header.css');
 @import url('components/gallery-controls.css');
@@ -15,6 +14,5 @@
 @import url('components/meme-editor.css');
 @import url('components/toast.css');
 
-
-/* MQ */
+/* MEDIA QUERIES */
 @import url('setup/mq.css');

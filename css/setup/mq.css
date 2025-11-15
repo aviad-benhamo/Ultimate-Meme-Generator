@@ -1,7 +1,5 @@
-/* TABLET --- */
+/* TABLET */
 @media (min-width: 768px) {
-
-    /* Header - larger for tablet */
     .nav-layout {
         gap: 15px;
     }
@@ -18,9 +16,6 @@
         font-size: 1rem;
         padding: 9px 16px;
     }
-
-    /* Gallery controls - keep mobile size for tablets to prevent overflow on iPad */
-    /* Buttons will only grow on desktop (992px+) */
 
     .meme-editor {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -52,13 +47,10 @@
     .controls .style-controls {
         grid-template-columns: minmax(120px, 1fr) minmax(160px, 2fr);
     }
-
 }
 
-/* DESKTOP --- */
+/* PC */
 @media (min-width: 992px) {
-
-    /* Header - even larger for desktop */
     .nav-layout {
         gap: 20px;
     }
@@ -76,7 +68,6 @@
         padding: 10px 18px;
     }
 
-    /* Gallery controls - larger buttons for desktop only (not tablets) */
     .gallery-controls {
         gap: 12px;
     }
@@ -86,12 +77,8 @@
         font-size: 1.05rem;
     }
 
-    /* --- תיקון יישור Header --- */
-
-    /* 1. נגדיר את פריסת הגריד רק עבור MAIN ו-FOOTER */
     main.main-layout,
     footer .main-layout {
-        /* סלקטור מתוקן ל-div בתוך ה-footer */
         display: grid;
         grid-template-columns: minmax(10px, 1fr) minmax(auto, 1320px) minmax(10px, 1fr);
         padding-inline: 0;
@@ -99,23 +86,17 @@
 
     main.main-layout>*,
     footer .main-layout>* {
-        /* סלקטור מתוקן ל-div בתוך ה-footer */
         grid-column: 2;
     }
 
-    /* 2. עבור ה-HEADER, נגביל את הרוחב שלו ונמרכז אותו */
-    /* זה ישמור על ה-display:flex שלו מ-header.css */
     .main-header .main-layout {
         max-width: 1320px;
-        /* נגביל את הרוחב כמו ה-grid */
         margin-inline: auto;
-        /* נמרכז אותו */
         padding-inline: 0;
-        /* נבטל את הפדינג של המובייל */
     }
 }
 
-/* grayscale effect for pc only */
+/* HOVER */
 @media (hover: hover) {
     .image-gallery img {
         filter: grayscale(1);

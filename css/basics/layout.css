@@ -1,9 +1,7 @@
-/* Main Layout */
 .main-layout {
     padding-inline: 20px;
 }
 
-/* Page Structure */
 body {
     min-height: 100vh;
     display: flex;

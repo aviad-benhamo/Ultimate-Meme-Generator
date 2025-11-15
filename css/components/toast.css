@@ -1,7 +1,6 @@
 .user-toast {
     position: fixed;
     bottom: 80px;
-    /* Above footer */
     right: 20px;
     background-color: #333;
     color: white;

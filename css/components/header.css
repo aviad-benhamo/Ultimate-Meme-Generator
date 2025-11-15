@@ -1,4 +1,3 @@
-/* Header Navigation */
 .nav-layout {
     display: flex;
     justify-content: space-between;
@@ -29,11 +28,7 @@
 
 .logo:hover .logo-ester {
     color: #12b886;
-    /* גוון שני מהגרדיאנט */
 }
-
-/* --- סוף צבעי לוגו --- */
-
 
 .main-nav ul {
     display: flex;
@@ -51,9 +46,7 @@
 }
 
 .main-nav a:hover {
-    /* --- עדכון צבע טקסט ב-Hover --- */
     color: #51aeff;
-    /* גוון כחול בהיר ובולט */
     background-color: #495057;
     border-color: #7a8288;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);

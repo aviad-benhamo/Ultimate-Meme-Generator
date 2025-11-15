@@ -2,9 +2,6 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 10px;
-
-    /* --- מוודאים שאין כאן רווח תחתון --- */
-    /* margin-bottom: 20px; (הוסר) */
 }
 
 .saved-memes-gallery img {
@@ -26,6 +23,5 @@
     color: #555;
     text-align: center;
     grid-column: 1 / -1;
-    /* Span all columns */
     margin-top: 30px;
 }
