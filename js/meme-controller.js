@@ -155,6 +155,37 @@ function onSaveMeme() {
     onShowSavedMemes()
 }
 
+function onShareImg(ev) {
+    ev.preventDefault()
+
+    // 1. Remove frame for clean image
+    const currIdx = getMeme().selectedLineIdx
+    setSelectedLine(-1)
+    renderMeme()
+
+    // 2. Get canvas data
+    const canvasData = gElCanvas.toDataURL('image/jpeg')
+
+    // 3. Restore frame for user
+    setSelectedLine(currIdx)
+    renderMeme()
+
+    // 4. Show uploading message
+    showUserMsg('Uploading your meme...')
+
+    // 5. Callback function for success
+    function onSuccess(uploadedImgUrl) {
+        showUserMsg('Upload complete! Opening Facebook...')
+        const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+
+        // Open Facebook share dialog
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}`)
+    }
+
+    // 6. Start upload
+    uploadImg(canvasData, onSuccess)
+}
+
 function onSetColor(color) {
     setColor(color)
     renderMeme()
