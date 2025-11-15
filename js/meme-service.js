@@ -61,7 +61,6 @@ function getSelectedLine() {
     return gMeme.lines[gMeme.selectedLineIdx]
 }
 
-// This is the main function to create a new meme
 function setImg(imgId, dataURL = null) {
     gMeme.selectedImgId = imgId // Can be 0 if user-uploaded
     gMeme.uploadedImgData = dataURL // Store the dataURL
@@ -117,7 +116,7 @@ function addLine() {
 function addSticker(stickerTxt) {
     gMeme.lines.push({
         txt: stickerTxt,
-        size: 80,
+        size: 60,
         align: 'center',
         y: 250,
         isSticker: true

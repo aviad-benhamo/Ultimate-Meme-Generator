@@ -34,7 +34,6 @@ function onUserImageReady(img) {
     // 4. main.js's .onload will handle renderMeme() and updateEditorControls()
 }
 
-
 function renderSavedMemes() {// SAVED MEMES GALLERY
     const memes = getSavedMemes()
 

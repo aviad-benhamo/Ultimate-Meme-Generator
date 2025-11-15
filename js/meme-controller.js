@@ -17,7 +17,6 @@ function renderMeme() {
 
     let dWidth, dHeight, dx, dy
 
-    // This logic is the *opposite* of "contain"
     if (imgRatio > canvasRatio) {
         // Image is wider than canvas ("cover" logic: fit height)
         dHeight = canvasHeight
@@ -146,7 +145,7 @@ function onImgSelect(imgId) {
 }
 
 function onEditSavedMeme(memeId) {
-    // This now returns either a URL or a dataURL
+    // Returns either a URL or a dataURL
     const imgSrc = setMemeForEdit(memeId)
     if (!imgSrc) return
 
