@@ -73,21 +73,24 @@
         font-size: 1.05rem;
     }
 
+    .main-header .main-layout {
+        max-width: 1320px;
+        margin-inline: auto;
+    }
+}
+
+@media (min-width: 1320px) {
+
     main.main-layout,
     footer .main-layout {
         display: grid;
-        grid-template-columns: minmax(10px, 1fr) minmax(auto, 1320px) minmax(10px, 1fr);
+        grid-template-columns: minmax(10px, 1fr) minmax(0, 1320px) minmax(10px, 1fr);
         padding-inline: 0;
     }
 
     main.main-layout>*,
     footer .main-layout>* {
         grid-column: 2;
-    }
-
-    .main-header .main-layout {
-        max-width: 1320px;
-        margin-inline: auto;
     }
 }
 
