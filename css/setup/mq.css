@@ -40,10 +40,6 @@
         overflow-y: auto;
     }
 
-    .controls .control-group {
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    }
-
     .controls .style-controls {
         grid-template-columns: minmax(120px, 1fr) minmax(160px, 2fr);
     }
@@ -92,7 +88,6 @@
     .main-header .main-layout {
         max-width: 1320px;
         margin-inline: auto;
-        padding-inline: 0;
     }
 }
 
