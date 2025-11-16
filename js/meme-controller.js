@@ -246,18 +246,48 @@ function onSetAlign(align) {
 function onChangeFontSize(diff) {
     const line = getSelectedLine()
     if (!line) return
-    const newSize = line.size + diff
-    if (newSize < 14) return
 
-    gCtx.font = `${newSize}px ${line.font}`
+    const newSize = line.size + diff
+    if (newSize < 14) return // Min size check
+
+    // Width check (Existing)
+    gCtx.font = `${newSize}px ${line.font}` // Set font to measure
     const textWidth = gCtx.measureText(line.txt).width
     if (textWidth > gElCanvas.width - 22) return
 
+    // Height check (New) - only check if growing
+    if (diff > 0) {
+        const newTopEdge = line.y - newSize
+        const newBottomEdge = line.y + 6 // Based on calculateLineRect's model
+
+        // Check if new size goes out of bounds
+        if (newTopEdge < 0 || newBottomEdge > gElCanvas.height) {
+            return
+        }
+    }
+
+    // If all checks pass:
     changeFontSize(diff)
     renderMeme()
 }
 
 function onSetUpDown(diff) {
+    const line = getSelectedLine()
+    if (!line) return // Make sure a line is selected
+
+    const newY = line.y + diff
+
+    if (diff < 0) { // Moving UP
+        // Use the app's own calculation for top edge
+        const topEdge = newY - line.size
+        if (topEdge < 0) return // Hit the top boundary
+    } else { // Moving DOWN
+        // Use the app's own calculation for bottom edge
+        const bottomEdge = newY + 6
+        if (bottomEdge > gElCanvas.height) return // Hit the bottom boundary
+    }
+
+    // If checks pass
     moveLineVertical(diff)
     renderMeme()
 }
