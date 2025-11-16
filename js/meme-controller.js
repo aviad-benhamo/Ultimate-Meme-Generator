@@ -285,7 +285,9 @@ function updateEditorControls() {
     if (!line) {
         // If no line is selected (e.g., after deleting last line - though we prevent this)
         gElTextInput.value = ''
+        gElTextInput.disabled = true
         gElColorInput.value = '#ffffff'
+        gElColorInput.disabled = true
         gElFontSelect.value = 'Impact'
         return
     }
