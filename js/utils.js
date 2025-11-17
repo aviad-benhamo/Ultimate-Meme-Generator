@@ -1,7 +1,6 @@
 'use strict'
 
 // --- localStorage UTILS ---
-
 function saveToStorage(key, val) {
     localStorage.setItem(key, JSON.stringify(val))
 }
@@ -12,7 +11,6 @@ function loadFromStorage(key) {
 }
 
 // --- RANDOM UTILS ---
-
 function getRandomInt(min, max) {
     min = Math.ceil(min)
     max = Math.floor(max)
@@ -29,7 +27,6 @@ function makeId(length = 5) {
 }
 
 // --- Cloudinary Upload ---
-
 async function uploadImg(imgData, onSuccess) {
     const CLOUD_NAME = 'webify'
     const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`

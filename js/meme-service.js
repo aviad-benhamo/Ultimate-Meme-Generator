@@ -48,7 +48,6 @@ function getRandomImgId() {
     return imgs[randomIdx].id
 }
 
-
 // --- gMeme (EDITOR) FUNCTIONS ---
 
 function getMeme() {
@@ -146,7 +145,6 @@ function switchLine() {
     gMeme.selectedLineIdx = currentIdx
 }
 
-
 // --- gSavedMemes (localStorage) FUNCTIONS ---
 
 function getSavedMemes() {
@@ -189,6 +187,7 @@ function deleteSavedMeme(memeId) {
 }
 
 // "Private" functions
+
 function _loadMemesFromStorage() {
     const memes = loadFromStorage(STORAGE_KEY)
     if (memes && memes.length > 0) {

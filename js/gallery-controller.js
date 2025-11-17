@@ -28,10 +28,8 @@ function onUserImageReady(img) {
     // This will trigger gCurrSelectedImg.onload in main.js
     gCurrSelectedImg.src = img.src
 
-    // 3. Navigate to the editor
+    // Navigate to the editor
     onShowEditor()
-
-    // 4. main.js's .onload will handle renderMeme() and updateEditorControls()
 }
 
 function renderSavedMemes() {// SAVED MEMES GALLERY
